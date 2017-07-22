@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+make build
+cp build/ng-admin.min.css /Projects/twentysteps/bmude/src/Bricks/Custom/Kosel/BmudeBrick/BmudeBundle/Resources/public/lib/ng-admin/build/ng-admin.min.css
+cp build/ng-admin.min.js /Projects/twentysteps/bmude/src/Bricks/Custom/Kosel/BmudeBrick/BmudeBundle/Resources/public/lib/ng-admin/build/ng-admin.min.js

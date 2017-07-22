@@ -94,6 +94,7 @@ export default class FormController {
             return;
         }
         const { view, $state, previousState, progression, notification, $translate } = this;
+        console.log('DEBUG: submitEdition',this.$scope.entry,view.fields());
         var restEntry = this.$scope.entry.transformToRest(view.fields());
         var entry = null;
         progression.start();

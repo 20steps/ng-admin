@@ -40,5 +40,16 @@ module.exports = {
       version: false,
       warnings: false,
       errorDetails: true,
+    },
+    externals: {
+        angular: 'angular',
+        angularUiRouter: 'angular-ui-router',
+        angularTranslate: 'angular-translate',
+        ngFileUpload: 'ng-file-upload',
+        jquery: 'jQuery',
+        lodash: '_',
+        restangular: 'Restangular'
     }
+
+
 };

@@ -1,9 +1,7 @@
 import angular from 'angular';
 
-require('angular-ui-router');
-require('restangular');
 
-var MainModule = angular.module('main', ['ui.router', 'restangular', 'pascalprecht.translate']);
+var MainModule = angular.module('main', ['ui.router', 'restangular', 'pascalprecht.translate', 'bricks.infrastructure.core']);
 
 MainModule.controller('AppController', require('./component/controller/AppController'));
 MainModule.controller('DashboardController', require('./component/controller/DashboardController'));

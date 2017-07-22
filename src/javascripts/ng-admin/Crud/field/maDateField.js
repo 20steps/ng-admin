@@ -51,7 +51,7 @@ export default function maDateField() {
             };
         },
         template:
-`<div class="input-group datepicker">
+`<div class="input-group datepicker2">
     <input
         type="text" ng-model="rawValue" id="{{ name }}" name="{{ name }}" class="form-control"
         uib-datepicker-popup="{{ format }}" is-open="isOpen" ng-required="v.required"

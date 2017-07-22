@@ -3,7 +3,7 @@
  *
  * @example <ma-file-field field="field"></ma-file-field>
  */
-export default function maFileField(Upload) {
+export default function maFileField(Upload, bricksAuthenticationService) {
     return {
         scope: {
             'field': '&',
@@ -57,6 +57,18 @@ export default function maFileField(Upload) {
                     for (var file in selectedFiles) {
                         uploadParams = angular.copy(scope.field().uploadInformation());
                         uploadParams.file = selectedFiles[file];
+                        uploadParams.url =
+                            bricks.custom.protocol + '://' + bricks.custom.host
+                            + '/bricks/api/v1.0/bmude/authenticated/'
+                            + scope.$parent.$parent.entry._entityName+'/'
+                            + scope.$parent.$parent.entry._identifierValue+'/'+
+                            uploadParams.url;
+                        uploadParams.method = 'POST';
+                        uploadParams.headers = {
+                            Authorization: 'Bearer ' + bricksAuthenticationService.getToken() || '',
+                            AuthorizationFF: 'Bearer ' + bricksAuthenticationService.getToken() || ''
+                        };
+                        uploadParams.withCredentials = true;
                         Upload
                             .upload(uploadParams)
                             .progress(function(evt) {
@@ -112,9 +124,14 @@ export default function maFileField(Upload) {
         </div>
     </div>
 </div>
-<input type="file" ngf-multiple="multiple" accept="{{ accept }}" ngf-select="fileSelected($files)"
+<input type="file" 
+        ngf-multiple="multiple"
+        ngf-fix-orientation="true"
+        ngf-max-size="5MB"
+        accept="{{ accept }}" 
+        ngf-select="fileSelected($files)"
        id="{{ name }}" name="{{ name }}" ng-required="v.required" style="display:none" />`
     };
 }
 
-maFileField.$inject = ['Upload'];
+maFileField.$inject = ['Upload','bricksAuthenticationService'];

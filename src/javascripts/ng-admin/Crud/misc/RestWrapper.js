@@ -1,8 +1,7 @@
 export default class RestWrapper {
-    constructor(Restangular) {
-        this.Restangular = Restangular;
-
-        Restangular.setFullResponse(true);
+    constructor(bricksAPIRESTNGAdminProjectRestangularService, bricksKernel) {
+        this.Restangular = bricksAPIRESTNGAdminProjectRestangularService;
+        this.bricksKernel = bricksKernel;
     }
 
     /**
@@ -14,6 +13,7 @@ export default class RestWrapper {
      * @returns {promise}
      */
     getOne(entityName, url) {
+        this.Restangular.setBaseUrl(this.bricksKernel.getProperty('bricks.api.protocol', 'http') + '://' +this. bricksKernel.getProperty('bricks.api.host', '20steps.de') + '/bricks/api/v1.0/' + this.bricksKernel.getProperty('bricks.project.code') + '/');
         return this.Restangular
             .oneUrl(entityName, url)
             .get()
@@ -32,12 +32,14 @@ export default class RestWrapper {
      * @returns {promise}
      */
     getList(params, entityName, url) {
+        this.Restangular.setBaseUrl(this.bricksKernel.getProperty('bricks.api.protocol', 'http') + '://' +this. bricksKernel.getProperty('bricks.api.host', '20steps.de') + '/bricks/api/v1.0/' + this.bricksKernel.getProperty('bricks.project.code') + '/');
         return this.Restangular
             .allUrl(entityName, url)
             .getList(params);
     }
 
     createOne(rawEntity, entityName, url, method) {
+        this.Restangular.setBaseUrl(this.bricksKernel.getProperty('bricks.api.protocol', 'http') + '://' +this. bricksKernel.getProperty('bricks.api.host', '20steps.de') + '/bricks/api/v1.0/' + this.bricksKernel.getProperty('bricks.project.code') + '/authenticated/');
         var resource = this.Restangular.oneUrl(entityName, url),
             operation = method ? resource.customOperation(method, null, {}, {}, rawEntity) : resource.customPOST(rawEntity);
 
@@ -47,6 +49,8 @@ export default class RestWrapper {
     }
 
     updateOne(rawEntity, entityName, url, method) {
+        this.Restangular.setBaseUrl(this.bricksKernel.getProperty('bricks.api.protocol', 'http') + '://' +this. bricksKernel.getProperty('bricks.api.host', '20steps.de') + '/bricks/api/v1.0/' + this.bricksKernel.getProperty('bricks.project.code') + '/authenticated/');
+        console.log('DEBUG updateOne',rawEntity);
         var resource = this.Restangular.oneUrl(entityName, url),
             operation = method ? resource.customOperation(method, null, {}, {}, rawEntity) : resource.customPUT(rawEntity);
 
@@ -56,10 +60,11 @@ export default class RestWrapper {
     }
 
     deleteOne(entityName, url) {
+        this.Restangular.setBaseUrl(this.bricksKernel.getProperty('bricks.api.protocol', 'http') + '://' +this. bricksKernel.getProperty('bricks.api.host', '20steps.de') + '/bricks/api/v1.0/' + this.bricksKernel.getProperty('bricks.project.code') + '/authenticated/');
         return this.Restangular
         .oneUrl(entityName, url)
             .customDELETE();
     }
 }
 
-RestWrapper.$inject = ['Restangular'];
+RestWrapper.$inject = ['bricksAPIRESTNGAdminProjectRestangularService','bricksKernel'];

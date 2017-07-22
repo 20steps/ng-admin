@@ -6,7 +6,7 @@
  * @param {progression} progression
  */
 export default function loader($rootScope, $window, progression) {
-    $rootScope.$on('$stateChangeStart', function () {
+    /*$rootScope.$on('$stateChangeStart', function () {
         progression.start();
     });
 
@@ -17,7 +17,7 @@ export default function loader($rootScope, $window, progression) {
 
     $rootScope.$on("$stateChangeError", function() {
         progression.done();
-    });
+    });*/
 }
 
 loader.$inject = ['$rootScope', '$window', 'progression'];

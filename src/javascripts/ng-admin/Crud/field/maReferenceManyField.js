@@ -8,15 +8,28 @@ export default function maReferenceManyField(ReferenceRefresher) {
         },
         restrict: 'E',
         link: function(scope) {
+            console.log('DEBUG: maReferenceManyFields.js',scope);
             const field = scope.field();
             const identifierName = field.targetEntity().identifier().name();
             scope.name = field.name();
             scope.v = field.validation();
             scope.choices = [];
+            console.log('DEBUG: maReferenceManyFields.js 2',scope.name, scope.v, field);
+
+            // hack
+            /*if (scope.value && scope.value.length) {
+                scope.value = scope.value.map(function(id) {
+                    if (typeof id === 'object') {
+                        return id.id;
+                    }
+                    return id;
+                });
+            }*/
 
             const setInitialChoices = (initialEntries) => {
                 if (scope.value && scope.value.length) {
                     scope.value.map((value) => {
+                        console.log('DEBUG tricky2',initialEntries,value);
                         const isCurrentValueInInitialEntries = initialEntries.filter(e => e.identifierValue === value).length > 0;
                         if (value && !isCurrentValueInInitialEntries) {
                             initialEntries.push(scope.datastore()
@@ -42,6 +55,7 @@ export default function maReferenceManyField(ReferenceRefresher) {
             } else {
                 const initialEntries = [];
                 setInitialChoices(initialEntries);
+                console.log('DEBUG initialChoices',initialEntries);
 
                 // ui-select doesn't allow to prepopulate autocomplete selects, see https://github.com/angular-ui/ui-select/issues/1197
                 // let ui-select fetch the options using the ReferenceRefresher

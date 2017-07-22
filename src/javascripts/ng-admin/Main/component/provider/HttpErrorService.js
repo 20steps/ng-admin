@@ -19,12 +19,16 @@ const HttpErrorService = ($state, $translate, notification) => ({
     },
 
     handle403Error: function(error) {
-        $translate('STATE_FORBIDDEN_ERROR', { message: error.data.message }).then(this.displayError);
+        if (error && error.data && error.data.message) {
+            $translate('STATE_FORBIDDEN_ERROR', {message: error.data.message}).then(this.displayError);
+        }
         throw error;
     },
 
     handleDefaultError: function(error) {
-        $translate('STATE_CHANGE_ERROR', { message: error.data.message }).then(this.displayError);
+        if (error && error.data && error.data.message) {
+            $translate('STATE_CHANGE_ERROR', { message: error.data.message }).then(this.displayError);
+        }
          throw error;
      },
 

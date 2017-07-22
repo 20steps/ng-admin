@@ -6,6 +6,7 @@ export default class ReferenceRefresher {
     }
 
     refresh(field, currentValue, search) {
+        console.log('DEBUG ReferenceRefresher.refresh',field,currentValue,search);
         var referenceFields = {};
         referenceFields[field.name()] = field;
 

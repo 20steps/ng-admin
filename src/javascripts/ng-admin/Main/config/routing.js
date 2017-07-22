@@ -17,21 +17,18 @@ function entryConstructorProvider() {
 function routing($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('ng-admin', {
+        parent: 'app.dashboard.default.admin',
         abstract: true,
-        views: {
-            'ng-admin': {
-                controller: 'AppController',
-                controllerAs: 'appController',
-                templateProvider: ['NgAdminConfiguration', function(Configuration) {
-                    return Configuration().layout() || layoutTemplate;
-                }]
-            }
-        }
+        controller: 'AppController',
+        controllerAs: 'appController',
+        templateProvider: ['NgAdminConfiguration', function(Configuration) {
+            return Configuration().layout() || layoutTemplate;
+        }]
     });
 
     $stateProvider.state('dashboard', {
         parent: 'ng-admin',
-        url: '/dashboard?sortField&sortDir',
+        url: '/ng-admin?sortField&sortDir',
         params: {
             sortField: null,
             sortDir: null
@@ -120,7 +117,7 @@ function routing($stateProvider, $urlRouterProvider) {
         template: errorTemplate
     });
 
-    $urlRouterProvider.when('', '/dashboard');
+    //$urlRouterProvider.when('', '/dashboard');
 
     $urlRouterProvider.otherwise(function($injector, $location) {
         var state = $injector.get('$state');

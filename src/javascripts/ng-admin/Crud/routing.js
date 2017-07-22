@@ -169,11 +169,14 @@ function routing($stateProvider) {
                     return view.mapEntry(rawEntry);
                 }],
                 referenceData: ['ReadQueries', 'view', 'entry', function (ReadQueries, view, entry) {
+                    console.log('DEBUG route referenceData',view,entry);
                     return ReadQueries.getReferenceData(view.fields(), [entry.values]);
                 }],
                 referenceEntries: ['dataStore', 'view', 'referenceData', function (dataStore, view, referenceData) {
                     const references = view.getReferences();
+                    console.log('DEBUG route referenceEntries',referenceData);
                     for (var name in referenceData) {
+                        console.log('DEBUG route referenceEntries',name,referenceData);
                         Entry.createArrayFromRest(
                             referenceData[name],
                             [references[name].targetField()],

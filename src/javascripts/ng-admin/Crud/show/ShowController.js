@@ -12,6 +12,7 @@ export default class ShowController {
         this.view = view;
         this.entity = this.view.getEntity();
         this.dataStore = dataStore;
+        console.log('DEBUG ShowController',this.$scope,this.entity,this.fields,this.dataStore);
 
         $scope.$on('$destroy', this.destroy.bind(this));
     }
